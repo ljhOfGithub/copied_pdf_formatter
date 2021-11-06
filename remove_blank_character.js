@@ -1,26 +1,26 @@
 // ==UserScript==
-// @name         È¥³ýÂÛÎÄ·­ÒëµÄ»»ÐÐ·ûºÍ¿Õ¸ñ
+// @name         È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ð·ï¿½ï¿½Í¿Õ¸ï¿½
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
 // @author       ljhOfGithub
-// @match        fanyi.youdao.com && fanyi.baidu.com
+// @match        fanyi.youdao.com
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
-    var button = document.createElement("button"); //´´½¨Ò»¸ö°´Å¥
+    var button = document.createElement("button"); //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Å¥
     var host = window.location.host;
-    button.textContent = "¸ñÊ½»¯"; //°´Å¥ÄÚÈÝ
-    button.style.width = "109px"; //°´Å¥¿í¶È
-    button.style.height = "38px"; //°´Å¥¸ß¶È
-    button.style.align = "center"; //ÎÄ±¾¾ÓÖÐ
-    button.style.color = "white"; //°´Å¥ÎÄ×ÖÑÕÉ«
-    button.style.background = "#e33e33"; //°´Å¥µ×É«
-    button.style.border = "1px solid #e33e33"; //±ß¿òÊôÐÔ
-    button.style.borderRadius = "4px"; //°´Å¥ËÄ¸ö½Ç»¡¶È
+    button.textContent = "ï¿½ï¿½Ê½ï¿½ï¿½"; //ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½
+    button.style.width = "109px"; //ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½
+    button.style.height = "38px"; //ï¿½ï¿½Å¥ï¿½ß¶ï¿½
+    button.style.align = "center"; //ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½
+    button.style.color = "white"; //ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    button.style.background = "#e33e33"; //ï¿½ï¿½Å¥ï¿½ï¿½É«
+    button.style.border = "1px solid #e33e33"; //ï¿½ß¿ï¿½ï¿½ï¿½ï¿½ï¿½
+    button.style.borderRadius = "4px"; //ï¿½ï¿½Å¥ï¿½Ä¸ï¿½ï¿½Ç»ï¿½ï¿½ï¿½
     if( host == "fanyi.youdao.com" )
     {
     document.getElementsByClassName('fanyi__operations--left')[0].appendChild(button);
