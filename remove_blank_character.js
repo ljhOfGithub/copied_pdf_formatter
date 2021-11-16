@@ -62,6 +62,7 @@ function blank(){
            //}
        //}
 
+       txt = txt.replace("e.g.",'for example,');
        txt = txt.replace(/\n/g,' ');
        txt = txt.replace(/\./g,".\n");
        //txt = txt.replace(/\n\s/g,"\n");
