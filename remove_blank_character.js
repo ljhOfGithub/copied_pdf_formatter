@@ -60,12 +60,11 @@ function blank(){
                //txt = txt.replace(".",". \n");
                //txt = txt.replace(" ","");
            //}
-
-
        //}
 
        txt = txt.replace(/\n/g,' ');
-       txt = txt.replace(/\./g,'.\n');
+       txt = txt.replace(/\./g,".\n");
+       //txt = txt.replace(/\n\s/g,"\n");
        let t=document.getElementById(id);
        let evt = document.createEvent('HTMLEvents');
        evt.initEvent('input',true,true);
