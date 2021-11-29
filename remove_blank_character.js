@@ -51,20 +51,23 @@ function blank(){
 
        }
        txt = document.getElementById(id).value || document.getElementsByClassName('er8xn')[0].value;
-       //for (var i=0;i<txt.length;i++)
-       //{
-           //if(txt.indexOf("\n"))
+       for (var i=0;i<txt.length;i++)
+       {
+           if(txt.indexOf(""))
            //if(txt.indexOf("\n")||txt.indexOf(" "))
-           //{
+           {
                //txt = txt.replace("\n"," ");
                //txt = txt.replace(".",". \n");
                //txt = txt.replace(" ","");
-           //}
-       //}
+               txt = txt.replace("","");
+           }
+       }
 
        txt = txt.replace("e.g.",'for example,');
+       txt = txt.replace("i.e.",'namely');
        txt = txt.replace(/\n/g,' ');
        txt = txt.replace(/\./g,".\n");
+       //txt = txt.replace("//g","-");
        //txt = txt.replace(/\n\s/g,"\n");
        let t=document.getElementById(id);
        let evt = document.createEvent('HTMLEvents');
