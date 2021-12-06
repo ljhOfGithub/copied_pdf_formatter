@@ -53,7 +53,7 @@ function blank(){
        txt = document.getElementById(id).value || document.getElementsByClassName('er8xn')[0].value;
        for (var i=0;i<txt.length;i++)//去掉论文的-（用于英文单词的跨行连接）和python源代码中的注释
        {
-           if(txt.indexOf("")||txt.indexOf("#"))
+           if(txt.indexOf("")||txt.indexOf("#")||txt.indexOf("///")||txt.indexOf("//"))
            //if(txt.indexOf("\n")||txt.indexOf(" "))
            {
                //txt = txt.replace("\n"," ");
@@ -61,6 +61,9 @@ function blank(){
                //txt = txt.replace(" ","");
                txt = txt.replace("","");
                txt = txt.replace("#","");
+               txt = txt.replace("///","");
+               txt = txt.replace("//","");
+
            }
        }
 
