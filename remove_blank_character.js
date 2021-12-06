@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         去除论文翻译的换行符和空格
+// @name         去除论文翻译的换行符和空格，去除复制的源代码中的注释符号，包括python的#，c++的///和//
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
