@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         去除论文翻译的换行符和空格，去除复制的源代码中的注释符号，包括python的#，c++的///和//
+// @name         去除论文翻译的换行符和空格
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
@@ -54,19 +54,19 @@ function blank(){
        for (var i=0;i<txt.length;i++)//去掉论文的-（用于英文单词的跨行连接）和python源代码中的注释
        {
            if(txt.indexOf("")||txt.indexOf("#")||txt.indexOf("///")||txt.indexOf("//"))
-           //if(txt.indexOf("\n")||txt.indexOf(" "))
            {
                //txt = txt.replace("\n"," ");
                //txt = txt.replace(".",". \n");
                //txt = txt.replace(" ","");
                txt = txt.replace("","");
                txt = txt.replace("#","");
-               if(txt.indexOf("///")){
+               if(txt.indexOf('///')==1){
                txt = txt.replace("///","");
+               console.log(txt.indexOf('///'))
                continue;
-               }else if(txt.indexOf("//")){
+               }//else if(txt.indexOf("//")){
                txt = txt.replace("//","");
-               }
+               //}
 
            }
 
