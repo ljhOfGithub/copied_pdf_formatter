@@ -61,10 +61,15 @@ function blank(){
                //txt = txt.replace(" ","");
                txt = txt.replace("","");
                txt = txt.replace("#","");
+               if(txt.indexOf("///")){
                txt = txt.replace("///","");
+               continue;
+               }else if(txt.indexOf("//")){
                txt = txt.replace("//","");
+               }
 
            }
+
        }
 
        txt = txt.replace("e.g.",'for example,');
