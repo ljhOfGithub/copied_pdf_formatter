@@ -51,8 +51,8 @@ function blank(){
 
        }
        txt = document.getElementById(id).value || document.getElementsByClassName('er8xn')[0].value;
+       //去掉论文[]的注释索引
        txt = txt.replace(/\[[0-9]*\]/g, "");
-
        for (let i=0;i<txt.length;i++)//去掉论文的-（用于英文单词的跨行连接）和python源代码中的注释
        {
            if(txt.indexOf("")||txt.indexOf("#")||txt.indexOf("///")||txt.indexOf("//"))
@@ -70,11 +70,13 @@ function blank(){
            }
 
        }
-       txt = txt.replace(/i\.e\./g,'for example,');
-       txt = txt.replace(/e\.g\./g,'namely');
-       txt = txt.replace(/\n/g,' ');
-       txt = txt.replace(/\./g,".\n");
+       txt = txt.replace(/i\.e\./g,'for example,');//替换i.e.
+       txt = txt.replace(/e\.g\./g,'namely');//替换e.g.
+       txt = txt.replace(/\n/g,' ');//去掉pdf复制产生的换行符
+       txt = txt.replace(/\./g,".\n");//自动分行
+       //判断数字串的正则表达式
        let numReg = /^[0-9]*$/
+       //判断特殊符号的正则表达式
        let symReg = /[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]$/
        for (let i=0;i<txt.length;i++)
        {
