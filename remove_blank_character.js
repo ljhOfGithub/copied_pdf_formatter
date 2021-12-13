@@ -53,6 +53,7 @@ function blank(){
        txt = document.getElementById(id).value || document.getElementsByClassName('er8xn')[0].value;
        //去掉论文[]的注释索引
        txt = txt.replace(/\[[0-9]*\]/g, "");
+       txt = txt.replace(/\[[1-9]{1,2}\, [1-9]{1,2}\]/g,"")
        for (let i=0;i<txt.length;i++)//去掉论文的-（用于英文单词的跨行连接）和python源代码中的注释
        {
            if(txt.indexOf("")||txt.indexOf("#")||txt.indexOf("///")||txt.indexOf("//"))
@@ -110,7 +111,8 @@ function blank(){
                txt = txt.substr(0,i+1) + txt.substr(i+2,txt.length);
            }
        }
-
+       // TODO:添加对更多自动分行的支持，如网址
+       //
        //txt = txt.replace("//g","-");
        //txt = txt.replace(/\n\s/g,"\n");
        let t=document.getElementById(id);
