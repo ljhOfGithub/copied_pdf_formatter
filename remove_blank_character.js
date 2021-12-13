@@ -72,8 +72,8 @@ function blank(){
        }
        txt = txt.replace("e.g.",'for example,');
        txt = txt.replace("i.e.",'namely');
-       //txt = txt.replace(/\n/g,' ');
-       //txt = txt.replace(/\./g,".\n");
+       txt = txt.replace(/\n/g,' ');
+       txt = txt.replace(/\./g,".\n");
        let numReg = /^[0-9]*$/
        for (let i=0;i<txt.length;i++)
        {
