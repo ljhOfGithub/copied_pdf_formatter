@@ -75,11 +75,12 @@ function blank(){
        txt = txt.replace(/\n/g,' ');
        txt = txt.replace(/\./g,".\n");
        let numReg = /^[0-9]*$/
+       let symReg = /[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]$/
        for (let i=0;i<txt.length;i++)
        {
            console.log(txt[i+1])
            console.log(numReg.test(txt[i+1]))
-           if(txt[i] == '\n' && numReg.test(txt[i+1]))
+           if(txt[i] == '\n' && numReg.test(txt[i+1]) || txt[i] == '\n' && symReg.test(txt[i+1]))
            {
                //console.log(txt[i])
                //console.log(txt.indexOf(/^[1-9]\d*\.\d*|0\.\d*[1-9]\d{,5}$/))
@@ -90,6 +91,16 @@ function blank(){
            }
            //else txt = txt.replace(/\./g,".\n");
        }
+       //TODO:弄清楚为什么产生多余的空格
+       for (let i=0;i<txt.length;i++)
+       {
+           if(txt[i] == '\n' && txt[i+1] == ' ')
+           {
+               console.log('need to delete the space')
+               txt = txt.substr(0,i+1) + txt.substr(i+2,txt.length);
+           }
+       }
+
        //txt = txt.replace("//g","-");
        //txt = txt.replace(/\n\s/g,"\n");
        let t=document.getElementById(id);
