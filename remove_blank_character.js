@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         去除论文翻译的换行符和空格
+// @name         pdf论文formatter
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
@@ -70,8 +70,8 @@ function blank(){
            }
 
        }
-       txt = txt.replace("e.g.",'for example,');
-       txt = txt.replace("i.e.",'namely');
+       txt = txt.replace(/i\.e\./g,'for example,');
+       txt = txt.replace(/e\.g\./g,'namely');
        txt = txt.replace(/\n/g,' ');
        txt = txt.replace(/\./g,".\n");
        let numReg = /^[0-9]*$/
@@ -91,6 +91,14 @@ function blank(){
            }
            //else txt = txt.replace(/\./g,".\n");
        }
+       //for (let i=0;i<txt.length;i++)
+       //{
+         //  if(txt[i] == 'i' && txt[i+1] == '.' && txt[i+2] == '\n' && txt[i+3] == 'e' && txt[i+4] == '.')
+           //{
+             //  console.log('need to delete enter')
+               //txt = txt.sub(0,i+2) + txt.substr(i+3,txt.length);
+           //}
+       //}
        //TODO:弄清楚为什么产生多余的空格
        for (let i=0;i<txt.length;i++)
        {
