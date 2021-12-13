@@ -54,6 +54,7 @@ function blank(){
        //去掉论文[]的注释索引
        txt = txt.replace(/\[[0-9]*\]/g, "");
        txt = txt.replace(/\[[1-9]{1,2}\, [1-9]{1,2}\]/g,"")
+       txt = txt.replace(/[\uac00-\ud7ff]/g,"'!!'")//处理韩文乱码
        for (let i=0;i<txt.length;i++)//去掉论文的-（用于英文单词的跨行连接）和python源代码中的注释
        {
            if(txt.indexOf("")||txt.indexOf("#")||txt.indexOf("///")||txt.indexOf("//"))
