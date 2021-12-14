@@ -51,10 +51,15 @@ function blank(){
 
        }
        txt = document.getElementById(id).value || document.getElementsByClassName('er8xn')[0].value;
+       //正则表达式处理字符串
        //去掉论文[]的注释索引
        txt = txt.replace(/\[[0-9]*\]/g, "");
        txt = txt.replace(/\[[1-9]{1,2}\, [1-9]{1,2}\]/g,"")
        txt = txt.replace(/[\uac00-\ud7ff]/g,"'!!'")//处理韩文乱码
+       txt = txt.replace(/i\.e\./g,'for example,');//替换i.e.
+       txt = txt.replace(/e\.g\./g,'namely');//替换e.g.
+       txt = txt.replace(/\n/g,' ');//去掉pdf复制产生的换行符
+       txt = txt.replace(/\./g,".\n");//自动分行
        for (let i=0;i<txt.length;i++)//去掉论文的-（用于英文单词的跨行连接）和python源代码中的注释
        {
            if(txt.indexOf("")||txt.indexOf("#")||txt.indexOf("///")||txt.indexOf("//"))
@@ -72,37 +77,27 @@ function blank(){
            }
 
        }
-       txt = txt.replace(/i\.e\./g,'for example,');//替换i.e.
-       txt = txt.replace(/e\.g\./g,'namely');//替换e.g.
-       txt = txt.replace(/\n/g,' ');//去掉pdf复制产生的换行符
-       txt = txt.replace(/\./g,".\n");//自动分行
        //判断数字串的正则表达式
        let numReg = /^[0-9]*$/
        //判断特殊符号的正则表达式
        let symReg = /[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]$/
+       let debugMode = false
        for (let i=0;i<txt.length;i++)
        {
            console.log(txt[i+1])
            console.log(numReg.test(txt[i+1]))
            if(txt[i] == '\n' && numReg.test(txt[i+1]) || txt[i] == '\n' && symReg.test(txt[i+1]))
            {
-               //console.log(txt[i])
-               //console.log(txt.indexOf(/^[1-9]\d*\.\d*|0\.\d*[1-9]\d{,5}$/))
-               //continue;
+                if(debugMode == true){
+                    console.log(txt[i])
+                    console.log(txt.indexOf(/^[1-9]\d*\.\d*|0\.\d*[1-9]\d{,5}$/))
+                    continue;
+                }
                console.log('need to delete enter')
                //txt = txt.replace('\n','')
                txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
            }
-           //else txt = txt.replace(/\./g,".\n");
        }
-       //for (let i=0;i<txt.length;i++)
-       //{
-         //  if(txt[i] == 'i' && txt[i+1] == '.' && txt[i+2] == '\n' && txt[i+3] == 'e' && txt[i+4] == '.')
-           //{
-             //  console.log('need to delete enter')
-               //txt = txt.sub(0,i+2) + txt.substr(i+3,txt.length);
-           //}
-       //}
        //TODO:弄清楚为什么产生多余的空格
        for (let i=0;i<txt.length;i++)
        {
@@ -113,9 +108,8 @@ function blank(){
            }
        }
        // TODO:添加对更多自动分行的支持，如网址
-       //
-       //txt = txt.replace("//g","-");
-       //txt = txt.replace(/\n\s/g,"\n");
+
+
        let t=document.getElementById(id);
        let evt = document.createEvent('HTMLEvents');
        evt.initEvent('input',true,true);
