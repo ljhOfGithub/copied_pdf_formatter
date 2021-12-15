@@ -51,7 +51,6 @@ function blank(){
 
        }
        txt = document.getElementById(id).value || document.getElementsByClassName('er8xn')[0].value;
-       //正则表达式处理字符串
        //去掉论文[]的注释索引
        txt = txt.replace(/\[[0-9]*\]/g, "");
        txt = txt.replace(/\[[1-9]{1,2}\, [1-9]{1,2}\]/g,"")
@@ -86,11 +85,13 @@ function blank(){
        {
            console.log(txt[i+1])
            console.log(numReg.test(txt[i+1]))
-           if(txt[i] == '\n' && numReg.test(txt[i+1]) || txt[i] == '\n' && symReg.test(txt[i+1]))
+           if(txt[i] == '\n' && numReg.test(txt[i+1]) || txt[i] == '\n' && symReg.test(txt[i+1])
+              || txt[i] == '\n' && numReg.test(txt[i+1]) && txt[i-1] == 'g' && txt[i-2] == 'i' || txt[i-3] == 'f'
+              || txt[i] == '\n' && numReg.test(txt[i+1]) && txt[i-1] == 'e' && txt[i-2] == 'r' || txt[i-3] == 'u')
            {
                 if(debugMode == true){
-                    console.log(txt[i])
-                    console.log(txt.indexOf(/^[1-9]\d*\.\d*|0\.\d*[1-9]\d{,5}$/))
+                    //console.log(txt[i])
+                    //console.log(txt.indexOf(/^[1-9]\d*\.\d*|0\.\d*[1-9]\d{,5}$/))
                     continue;
                 }
                console.log('need to delete enter')
@@ -98,18 +99,33 @@ function blank(){
                txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
            }
        }
+       //处理figure.3或者fig.3
+       for (let i=0;i<txt.length;i++)
+       {
+           if(txt[i] == '\n' && txt[i-1] == '.' && txt[i-2] == 'g' && txt[i-3] == 'i'
+              || txt[i] == '\n' && txt[i-1] == '.' && txt[i-2] == 'e' && txt[i-3] == 'r' && txt[i-4] == 'u' )
+           {
+                if(debugMode == true){
+                    //console.log(txt[i])
+                    //console.log(txt.indexOf(/^[1-9]\d*\.\d*|0\.\d*[1-9]\d{,5}$/))
+                    continue;
+                }
+               console.log('need to delete enter')
+               //txt = txt.replace('\n','')
+               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+           }
+
+       }
        //TODO:弄清楚为什么产生多余的空格
        for (let i=0;i<txt.length;i++)
        {
            if(txt[i] == '\n' && txt[i+1] == ' ')
            {
-               console.log('need to delete the space')
+               //console.log('need to delete the space')
                txt = txt.substr(0,i+1) + txt.substr(i+2,txt.length);
            }
        }
        // TODO:添加对更多自动分行的支持，如网址
-
-
        let t=document.getElementById(id);
        let evt = document.createEvent('HTMLEvents');
        evt.initEvent('input',true,true);
