@@ -85,9 +85,7 @@ function blank(){
        {
            console.log(txt[i+1])
            console.log(numReg.test(txt[i+1]))
-           if(txt[i] == '\n' && numReg.test(txt[i+1]) || txt[i] == '\n' && symReg.test(txt[i+1])
-              || txt[i] == '\n' && numReg.test(txt[i+1]) && txt[i-1] == 'g' && txt[i-2] == 'i' || txt[i-3] == 'f'
-              || txt[i] == '\n' && numReg.test(txt[i+1]) && txt[i-1] == 'e' && txt[i-2] == 'r' || txt[i-3] == 'u')
+           if(txt[i] == '\n' && numReg.test(txt[i+1]) || txt[i] == '\n' && symReg.test(txt[i+1]))
            {
                 if(debugMode == true){
                     //console.log(txt[i])
@@ -96,6 +94,18 @@ function blank(){
                 }
                console.log('need to delete enter')
                //txt = txt.replace('\n','')
+               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+           }
+       }
+       //处理"et al."的回车
+       for (let i=0;i<txt.length;i++)
+       {
+           if(txt[i] == '\n' && txt[i-1] == '.' && txt[i-2] == 'l' && txt[i-3] == 'a' )
+           {
+                if(debugMode == true){
+                    continue;
+                }
+               console.log('et al.')
                txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
            }
        }
