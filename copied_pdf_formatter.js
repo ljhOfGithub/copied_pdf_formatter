@@ -59,6 +59,7 @@ function blank(){
        txt = txt.replace(/e\.g\./g,'namely');//替换e.g.
        txt = txt.replace(/\n/g,' ');//去掉pdf复制产生的换行符
        txt = txt.replace(/\./g,".\n");//自动分行
+       txt = txt.replace(/\?/g,"?\n");//问号分行
        for (let i=0;i<txt.length;i++)//去掉论文的-（用于英文单词的跨行连接）和python源代码中的注释
        {
            if(txt.indexOf("")||txt.indexOf("#")||txt.indexOf("///")||txt.indexOf("//"))
@@ -101,6 +102,18 @@ function blank(){
        for (let i=0;i<txt.length;i++)
        {
            if(txt[i] == '\n' && txt[i-1] == '.' && txt[i-2] == 'l' && txt[i-3] == 'a' )
+           {
+                if(debugMode == true){
+                    continue;
+                }
+               console.log('et al.')
+               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+           }
+       }
+       //处理“RQ.1”的回车
+       for (let i=0;i<txt.length;i++)
+       {
+           if(txt[i] == '\n' && txt[i-1] == '.' && numReg.test(txt[i-2]) && txt[i-3] == 'Q' && txt[i-4] == 'R' )
            {
                 if(debugMode == true){
                     continue;
