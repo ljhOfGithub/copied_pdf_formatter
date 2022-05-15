@@ -58,7 +58,7 @@ function blank(){
        txt = txt.replace(/i\.e\./g,'for example');//替换i.e.
        txt = txt.replace(/e\.g\./g,'namely');//替换e.g.
        txt = txt.replace(/\n/g,' ');//去掉pdf复制产生的换行符
-       txt = txt.replace(/\./g,".\n");//自动分行
+       txt = txt.replace(/\./g,".\n");//自动分行，但是如果是http开头的不能进行分行，可以用正则表达式搜索所有的网址，针对非网址进行分行
        txt = txt.replace(/\?/g,"?\n");//问号分行
        for (let i=0;i<txt.length;i++)//去掉论文的-（用于英文单词的跨行连接）和python源代码中的注释
        {
@@ -145,9 +145,11 @@ function blank(){
            if(txt[i] == '\n' && txt[i+1] == 'i' && txt[i+2] == 'o'
               || txt[i] == '\n' && txt[i+1] == 'c' && txt[i+2] == 'o' && txt[i+3] == 'm'
               || txt[i] == '\n' && txt[i+1] == 'c' && txt[i+2] == 'n'
-              || txt[i] == '\n' && txt[i-1] == '.' && txt[i-2] == 't' && txt[i-3] == 'e'
+              || txt[i] == '\n' && txt[i+1] == '.' && txt[i+2] == 't' && txt[i+3] == 'e'
               || txt[i] == '\n' && txt[i+1] == 'o' && txt[i+2] == 'r' && txt[i+3] == 'g'
-              || txt[i] == '\n' && txt[i+1] == 'h' && txt[i+2] == 't' && txt[i+3] == 'm' && txt[i+4] == 'l')
+              || txt[i] == '\n' && txt[i+1] == 'h' && txt[i+2] == 't' && txt[i+3] == 'm' && txt[i+4] == 'l'
+              || txt[i] == '\n' && txt[i+1] == 'g' && txt[i+2] == 'i' && txt[i+3] == 't' && txt[i+4] == 'h' && txt[i+5] == 'u' && txt[i+6] == 'b'
+              )
            {
                 if(debugMode == true){
                     //console.log(txt[i])
@@ -156,7 +158,7 @@ function blank(){
                 }
                console.log('need to delete enter')
                //txt = txt.replace('\n','')
-               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);//通过去掉新加的换行符进行回退
            }
 
        }
@@ -164,13 +166,61 @@ function blank(){
        //TODO:弄清楚为什么产生多余的空格
        for (let i=0;i<txt.length;i++)
        {
-           if(txt[i] == '\n' && txt[i+1] == ' ')
+           if(txt[i] == '\n' && txt[i+1] == ' ')//自动换行后新的行第一个字符总为空格
            {
                //console.log('need to delete the space')
                txt = txt.substr(0,i+1) + txt.substr(i+2,txt.length);
            }
        }
-       
+       // 如果某行的字母少于某个阈值则删除前面的换行符
+       for (let i=0;i<txt.length;i++)
+       {
+           if(txt[i] == '\n' && txt[i+2] == '\n')
+           {
+               //txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+               txt = txt.substr(0,i+2) + txt.substr(i+3,txt.length);
+           }
+           else if(txt[i] == '\n' && txt[i+3] == '\n')
+           {
+               //txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+               txt = txt.substr(0,i+3) + txt.substr(i+4,txt.length);
+           }
+           else if(txt[i] == '\n' && txt[i+4] == '\n')
+           {
+               //txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+               txt = txt.substr(0,i+4) + txt.substr(i+5,txt.length);
+           }
+           else if(txt[i] == '\n' && txt[i+5] == '\n')
+           {
+               //txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+               txt = txt.substr(0,i+5) + txt.substr(i+6,txt.length);
+           }
+           else if(txt[i] == '\n' && txt[i+6] == '\n')
+           {
+               //txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+               txt = txt.substr(0,i+6) + txt.substr(i+7,txt.length);
+           }
+           if(txt[i] == ' ' && txt[i+1] == '.'){
+               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+           }
+           if(txt[i] == '\n' && txt[i+3] == '/')//网址的/字符
+           {
+               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+           }
+           else if(txt[i] == '\n' && txt[i+4] == '/')
+           {
+               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+           }
+           else if(txt[i] == '\n' && txt[i+5] == '/')
+           {
+               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+           }
+           else if(txt[i] == '\n' && txt[i+6] == '/')
+           {
+               txt = txt.substr(0,i) + txt.substr(i+1,txt.length);
+           }
+       }
+
        let t=document.getElementById(id);
        let evt = document.createEvent('HTMLEvents');
        evt.initEvent('input',true,true);
